@@ -1,10 +1,10 @@
 require 'pipey/version'
 require 'pipey/line'
 require 'pipey/chain'
-require 'pipey/scanner'
-require 'pipey/dsl'
-require 'pipey/required_keys'
-require 'pipey/ignore'
+require 'pipey/steps'
+require 'pipey/steps'
+require 'pipey/extensions'
+require 'pipey/extensions'
 
 module Pipey
   # Your code goes here...

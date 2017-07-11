@@ -1,5 +1,5 @@
 module Pipey
-  module Core
+  module Core # :nodoc:
     def self.included(base)
       base.extend ClassMethods
     end
@@ -10,12 +10,12 @@ module Pipey
       end
     end
 
-    def done!(*args)
-      throw(:__pipey_done, *args)
+    def stop!(*args)
+      throw(:__pipey_stop, *args)
     end
 
     def call(*args)
-      catch :__pipey_done do
+      catch :__pipey_stop do
         clone.call!(*args)
       end
     end

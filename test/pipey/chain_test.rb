@@ -12,30 +12,30 @@ module Pipey
       end
 
       class DSL < self
-        extend Pipey::DSL
+        extend Pipey::Steps::DSL
 
         step :run_multiply
         step :run_divide
       end
 
       class Scanner < self
-        extend Pipey::Scanner[/^run_/]
+        extend Pipey::Steps::Scanner[/^run_/]
 
         class RequiredKeys < self
-          extend Pipey::RequiredKeys
+          extend Pipey::Extensions::RequiredKeys
         end
 
         class IgnoreNil < self
-          extend Pipey::IgnoreNil
+          extend Pipey::Extensions::IgnoreNil
         end
       end
     end
 
-    class Done < Pipey::Chain
-      extend Pipey::Scanner[/^run_/]
+    class Stopper < Pipey::Chain
+      extend Pipey::Steps::Scanner[/^run_/]
 
-      def run_done(**)
-        done! 100
+      def run_stop(**)
+        stop! 100
         200
       end
     end
@@ -76,8 +76,8 @@ module Pipey
       assert_equal [10, 20], s.call([1, 2], multiply_by: 10, divide_by: 5, skip: true)
     end
 
-    def test_done
-      assert_equal 100, Done.call(1)
+    def test_stop
+      assert_equal 100, Stopper.call(1)
     end
   end
 end
