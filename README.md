@@ -1,6 +1,6 @@
 # Pipey
 
-A utility for pipeline operations.
+Build functional pipelines in Ruby by taking advantage of Ruby's keyword arguments for "pattern matching".
 
 ## Installation
 
@@ -64,13 +64,18 @@ MyPipe.call([1, 2, 3], multiply: 5, minimum: 6) #=> [10, 15]
 
 `Pipey::Steps::Scanner` takes a `Regexp` as an argument, and it will run the methods that match the regexp.
 
-**NOTE:** This does not guarantee the order in which steps will run.
+```ruby
+class MyPipe < Pipey::Line
+  extend Pipey::Steps::Scanner[/^run_/]
+  
+  def run_something(**); end # this will be called
+  def something(**); end     # this will not be called
+end
+```
 
 ### `Pipey::Steps::DSL`
 
 If you don't like the automatic behavior provided by `Pipey::Steps::Scanner`, you can use `Pipey::Steps::DSL` instead. With it, you can list out your steps.
-
-**NOTE:** This does guarantee the order in which steps will run.
 
 ```ruby
 class MyPipe < Pipey::Line
@@ -124,7 +129,7 @@ class MyPipe < Pipey::Line
   extend Pipey::Extensions::IgnoreNil
 
   def run_foo(num, add:, **)
-    num * add if add > 5
+    num + add if add > 5
   end
 end
 
@@ -149,6 +154,10 @@ class MyPipe < Pipey::Line
   extend Pipey::Extensions::Ignore.new { |v| v == 5 }
 end
 ```
+
+## TODO
+
++ [ ] `Pipey::Steps::Scanner` does not guarantee order.
 
 ## Contributing
 
