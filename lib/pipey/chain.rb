@@ -1,18 +1,14 @@
+require 'pipey/core'
+
 module Pipey
   class Chain < SimpleDelegator
+    include Core
+
     def self.call(initial, params = {})
       new(initial).call(params)
     end
 
-    def self.valid_pipe_result?(_)
-      true
-    end
-
-    def call(params = {})
-      clone.call!(params)
-    end
-
-    def call!(params) # :nodoc:
+    def call!(params = {}) # :nodoc:
       self.class.steps_for(params).each do |name|
         result = send(name, params)
 
