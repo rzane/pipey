@@ -1,6 +1,6 @@
 # Pipey
 
-Build functional pipelines in Ruby by taking advantage of Ruby's keyword arguments for "pattern matching".
+Build functional pipelines in Ruby by taking advantage of Ruby's keyword arguments for "pattern matching."
 
 ## Installation
 
@@ -42,7 +42,7 @@ MyPipe.call(1, multiply: 10, add: 5) #=> 15
 
 ### `Pipey::Chain`
 
-`Pipey::Chain` is a slightly fancier way to work with chainable objects like `Array`s or `ActiveRecord::Relation`s.
+`Pipey::Chain` is a slightly fancier way to work with chainable objects like `Array` or `ActiveRecord::Relation`. In the example below, `map` and `select` are automatically delegated to the array.
 
 ```ruby
 class MyPipe < Pipey::Chain
